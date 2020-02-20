@@ -10,19 +10,19 @@ To find the setup instructions for using `jiant` and to run a simple example dem
 ## Supported Tasks
 
 We currently support the below tasks, plus several more documented only in the code:
-- All [GLUE](https://gluebenchmark.com) tasks, downloadable [here](https://github.com/nyu-mll/jiant/blob/master/scripts/download_glue_data.py)
-- All [SuperGLUE](https://gluebenchmark.com) tasks, downloadable [here](https://github.com/nyu-mll/jiant/blob/master/scripts/download_superglue_data.py)
-- DisSent; details for preparing the data are in [`scripts/dissent/README`](scripts/dissent/README)
-- CCG; details for preparing the data are in [`scripts/ccg/README`](scripts/ccg/README)
-- [SWAG](https://arxiv.org/pdf/1808.05326.pdf), downloadable [here](https://rowanzellers.com/swag/)
+- All [GLUE](https://gluebenchmark.com) tasks (downloadable [here](https://github.com/nyu-mll/jiant/blob/master/scripts/download_glue_data.py))
+- All [SuperGLUE](https://gluebenchmark.com) tasks (downloadable [here](https://github.com/nyu-mll/jiant/blob/master/scripts/download_superglue_data.py))
+- DisSent: Details for preparing the data are in [`scripts/dissent/README`](scripts/dissent/README).
+- CCG: Details for preparing the data are in [`scripts/ccg/README`](scripts/ccg/README).
+- [SWAG](https://arxiv.org/pdf/1808.05326.pdf). The data can be downloaded from [SWAG website](https://rowanzellers.com/swag/).
+- [QA-SRL](http://qasrl.org/). The data can be downloaded using the script provided [here](https://github.com/uwnlp/qasrl-bank). The resulting data folder `qasrl-v2` should be renamed to `QASRL`.  
 
 Data files should be in the directory specified by `data_dir` in a subdirectory corresponding to the task, as specified in the task definition (see [`jiant/tasks`](https://github.com/nyu-mll/jiant/tree/master/jiant/tasks)). The GLUE and SuperGLUE download scripts should create acceptable directories automatically.
 
 To add a new task, refer to this [tutorial](https://github.com/nyu-mll/jiant/blob/master/tutorials/adding_tasks.md)!
 
 
-## Command-Line Options
-
+## Command-Line 
 All model configuration is handled through the config file system and the `--overrides` flag, but there are also a few command-line arguments that control the behavior of `main.py`. In particular:
 
 `--tensorboard` (or `-t`): use this to run a [Tensorboard](https://www.tensorflow.org/guide/summaries_and_tensorboard) server while the trainer is running, serving on the port specified by `--tensorboard_port` (default is `6006`).
