@@ -1,4 +1,4 @@
-# `jiant` 1.2: The Manual
+# `jiant` 1.3: The Manual
 
 Note: This document describes the latest _release_ version of `jiant`. Additional unreleased changes may be available on the GitHub master branch.
 
