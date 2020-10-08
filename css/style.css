@@ -7,7 +7,7 @@
 
 /* =======================================================
 *
-* 	Template Style 
+* 	Template Style
 *
 * ======================================================= */
 body {
@@ -1364,6 +1364,21 @@ input[type="text"] {
     border: 1px solid #4aca85; }
     .btn-primary.btn-outline:hover, .btn-primary.btn-outline:focus, .btn-primary.btn-outline:active {
       background: #4aca85;
+      color: #fff; }
+
+.btn-secondary {
+  background: #bbbbbb;
+  color: #fff;
+  border: 1px solid #bbbbbb; }
+  .btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active {
+    background: #ccc !important;
+    border-color: #ccc !important; }
+  .btn-secondary.btn-outline {
+    background: transparent;
+    color: #bbbbbb;
+    border: 1px solid #bbbbbb; }
+    .btn-secondary.btn-outline:hover, .btn-secondary.btn-outline:focus, .btn-secondary.btn-outline:active {
+      background: #bbbbbb;
       color: #fff; }
 
 .btn-success {
