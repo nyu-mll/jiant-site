@@ -4,25 +4,25 @@ Note: This document describes the latest _release_ version of `jiant`. Additiona
 
 ## Getting Started
 
-To find the setup instructions for using `jiant` and to run a simple example demo experiment using data from GLUE, follow this [getting started tutorial](https://github.com/nyu-mll/jiant/blob/master/tutorials/setup_tutorial.md)! 
+To find the setup instructions for using `jiant` and to run a simple example demo experiment using data from GLUE, follow this [getting started tutorial](https://github.com/nyu-mll/jiant-v1-legacy/blob/master/tutorials/setup_tutorial.md)!
 
 
 ## Supported Tasks
 
 We currently support the below tasks, plus several more documented only in the code:
-- All [GLUE](https://gluebenchmark.com) tasks (downloadable [here](https://github.com/nyu-mll/jiant/blob/master/scripts/download_glue_data.py))
-- All [SuperGLUE](https://gluebenchmark.com) tasks (downloadable [here](https://github.com/nyu-mll/jiant/blob/master/scripts/download_superglue_data.py))
+- All [GLUE](https://gluebenchmark.com) tasks (downloadable [here](https://github.com/nyu-mll/jiant-v1-legacy/blob/master/scripts/download_glue_data.py))
+- All [SuperGLUE](https://gluebenchmark.com) tasks (downloadable [here](https://github.com/nyu-mll/jiant-v1-legacy/blob/master/scripts/download_superglue_data.py))
 - DisSent: Details for preparing the data are in [`scripts/dissent/README`](scripts/dissent/README).
 - CCG: Details for preparing the data are in [`scripts/ccg/README`](scripts/ccg/README).
 - [SWAG](https://arxiv.org/pdf/1808.05326.pdf). The data can be downloaded from [SWAG website](https://rowanzellers.com/swag/).
-- [QA-SRL](http://qasrl.org/). The data can be downloaded using the script provided [here](https://github.com/uwnlp/qasrl-bank). The resulting data folder `qasrl-v2` should be renamed to `QASRL`.  
+- [QA-SRL](http://qasrl.org/). The data can be downloaded using the script provided [here](https://github.com/uwnlp/qasrl-bank). The resulting data folder `qasrl-v2` should be renamed to `QASRL`.
 
-Data files should be in the directory specified by `data_dir` in a subdirectory corresponding to the task, as specified in the task definition (see [`jiant/tasks`](https://github.com/nyu-mll/jiant/tree/master/jiant/tasks)). The GLUE and SuperGLUE download scripts should create acceptable directories automatically.
+Data files should be in the directory specified by `data_dir` in a subdirectory corresponding to the task, as specified in the task definition (see [`jiant/tasks`](https://github.com/nyu-mll/jiant-v1-legacy/tree/master/jiant/tasks)). The GLUE and SuperGLUE download scripts should create acceptable directories automatically.
 
-To add a new task, refer to this [tutorial](https://github.com/nyu-mll/jiant/blob/master/tutorials/adding_tasks.md)!
+To add a new task, refer to this [tutorial](https://github.com/nyu-mll/jiant-v1-legacy/blob/master/tutorials/adding_tasks.md)!
 
 
-## Command-Line 
+## Command-Line
 All model configuration is handled through the config file system and the `--overrides` flag, but there are also a few command-line arguments that control the behavior of `main.py`. In particular:
 
 `--tensorboard` (or `-t`): use this to run a [Tensorboard](https://www.tensorflow.org/guide/summaries_and_tensorboard) server while the trainer is running, serving on the port specified by `--tensorboard_port` (default is `6006`).
@@ -69,9 +69,9 @@ To use [GloVe pretrained word embeddings](https://nlp.stanford.edu/projects/glov
 
 #### BERT, XLNet, GPT, GPT-2, Transformer-XL, XLM or RoBERTa
 
-To use [BERT](https://arxiv.org/abs/1810.04805), [XLNet](https://arxiv.org/abs/1906.08237), [GPT](https://openai.com/blog/language-unsupervised/), [GPT-2](https://openai.com/blog/better-language-models/), [Transformer-XL](https://arxiv.org/abs/1901.02860), [XLM](https://arxiv.org/abs/1901.07291) or [RoBERTa](https://arxiv.org/abs/1907.11692) set ``input_module`` to one of the relevant model names summarized in [defaults.conf](https://github.com/nyu-mll/jiant/blob/master/config/defaults.conf) and listed in full [here](https://huggingface.co/pytorch-transformers/pretrained_models.html), e.g. ``bert-base-cased``. We generally follow the procedures set out in the original works as closely as possible: For single sentence tasks, we add special boundry tokens to the sentence. For pair sentence tasks, we concatenate the sentences, with special boundry and separator tokens specified in the original work (e.g. For BERT, `[CLS]` and `[SEP]`). If you choose ``pool_type = auto``, we will take the representation from the designated location (e.g. For BERT, from the first token, where `[CLS]` resides) as the representation of the entire sequence. We also have support for the version of Adam that was used in training BERT (``optimizer = bert_adam``). When using these models, it is preferable to set ``tokeizer = auto``.
+To use [BERT](https://arxiv.org/abs/1810.04805), [XLNet](https://arxiv.org/abs/1906.08237), [GPT](https://openai.com/blog/language-unsupervised/), [GPT-2](https://openai.com/blog/better-language-models/), [Transformer-XL](https://arxiv.org/abs/1901.02860), [XLM](https://arxiv.org/abs/1901.07291) or [RoBERTa](https://arxiv.org/abs/1907.11692) set ``input_module`` to one of the relevant model names summarized in [defaults.conf](https://github.com/nyu-mll/jiant-v1-legacy/blob/master/config/defaults.conf) and listed in full [here](https://huggingface.co/pytorch-transformers/pretrained_models.html), e.g. ``bert-base-cased``. We generally follow the procedures set out in the original works as closely as possible: For single sentence tasks, we add special boundry tokens to the sentence. For pair sentence tasks, we concatenate the sentences, with special boundry and separator tokens specified in the original work (e.g. For BERT, `[CLS]` and `[SEP]`). If you choose ``pool_type = auto``, we will take the representation from the designated location (e.g. For BERT, from the first token, where `[CLS]` resides) as the representation of the entire sequence. We also have support for the version of Adam that was used in training BERT (``optimizer = bert_adam``). When using these models, it is preferable to set ``tokeizer = auto``.
 
-[`copa_bert.conf`](https://github.com/nyu-mll/jiant/blob/master/config/copa_bert.conf) shows an example setup using BERT on a single task, and can serve as a reference. 
+[`copa_bert.conf`](https://github.com/nyu-mll/jiant-v1-legacy/blob/master/config/copa_bert.conf) shows an example setup using BERT on a single task, and can serve as a reference.
 
 #### Ordered Neurons (ON-LSTM) Grammar Induction Model
 
@@ -79,7 +79,7 @@ To use the ON-LSTM sentence encoder from [Ordered Neurons: Integrating Tree Stru
 
 #### PRPN Grammar Induction Model
 
-To use the PRPN sentence encoder from [***Neural language modeling by jointly learning syntax and lexicon***](https://arxiv.org/abs/1711.02013), set ``sent_enc=prpn``. To re-run experiments from the paper on WSJ Language Modeling, use the configuration file [config/prpn.conf](config/prpn.conf). Specific PRPN modules use code from the [Github](https://github.com/yikangshen/PRPN) implementation of the paper. 
+To use the PRPN sentence encoder from [***Neural language modeling by jointly learning syntax and lexicon***](https://arxiv.org/abs/1711.02013), set ``sent_enc=prpn``. To re-run experiments from the paper on WSJ Language Modeling, use the configuration file [config/prpn.conf](config/prpn.conf). Specific PRPN modules use code from the [Github](https://github.com/yikangshen/PRPN) implementation of the paper.
 
 Task-specific components include logistic regression and multi-layer perceptron for classification and regression tasks, and an RNN decoder with attention for sequence transduction tasks.
 To see the full set of available params, see [config/defaults.conf](config/defaults.conf). For a list of options affecting the execution pipeline (which configuration file to use, whether to enable remote logging or Tensorboard, etc.), see the arguments section in [main.py](main.py).
@@ -92,18 +92,18 @@ The learning rate is scheduled to decay by ``lr_decay_factor`` (default: .5) whe
 
 If you're training only on one task, you don't need to worry about this. You'll still see macro-average and micro-average performance statistics, but these will simply be repetitions of your the results for your single task.
 
-If you are training on multiple tasks, you can vary the sampling weights with ``weighting_method``, e.g. ``weighting_method = uniform`` or ``weighting_method = proportional`` (proportional to amount of training data). You can also scale the losses of each minibatch via ``scaling_method`` if you want to weight tasks with different amounts of training data equally throughout training. 
+If you are training on multiple tasks, you can vary the sampling weights with ``weighting_method``, e.g. ``weighting_method = uniform`` or ``weighting_method = proportional`` (proportional to amount of training data). You can also scale the losses of each minibatch via ``scaling_method`` if you want to weight tasks with different amounts of training data equally throughout training.
 
 We use a shared global optimizer and LR scheduler for all tasks. In the global case, we use the macro average of each task's validation metrics to do LR scheduling and early stopping. When doing multi-task training and at least one task's validation metric should decrease (e.g. perplexity), we invert tasks whose metric should decrease by averaging ``1 - (val_metric / dec_val_scale)``, so that the macro-average will be well-behaved.
 
 ### How to use `jiant` to run experiments
 
 Within a run, training is distinguished between pretraining and target training phases. In the pretraining phase, the `pretrain tasks` are trained in a multi-task fashion. In the target train phase, each task is trained one at a time, and there is no shared training of the encoder in the target train phase.
- Specify pretraining tasks with ``pretrain_tasks = $pretrain_tasks`` where ``$pretrain_tasks`` is a comma-separated list of task names; similarly use ``target_tasks`` to specify the tasks to target train on. 
+ Specify pretraining tasks with ``pretrain_tasks = $pretrain_tasks`` where ``$pretrain_tasks`` is a comma-separated list of task names; similarly use ``target_tasks`` to specify the tasks to target train on.
 
 The most extensive way to use `jiant` is to pretrain on a set of tasks, before training on target tasks. In this method, the best model from the pretraining stage is loaded and used to train each of the target tasks. This shared sentence encoder can either be frozen or finetuned (controlled by `transfer_paradigm`).`transfer_paradigm = finetune` will train the shared encoder alongside the task specific parts of the model, whereas setting `transfer_paradigm = frozen` will only train the target-task specific components while training for a target task.
 
-You can control which steps are performed or skipped by setting the flags ``do_pretrain, do_target_task_training, do_full_eval``. 
+You can control which steps are performed or skipped by setting the flags ``do_pretrain, do_target_task_training, do_full_eval``.
 
 More specifically:
 
@@ -114,7 +114,7 @@ More specifically:
 
 If using ELMo and `sep_embs_for_skip = 1`, we will also learn a task-specific set of ELMo's layer-mixing weights.
 
-[`copa_bert.conf`](https://github.com/nyu-mll/jiant/blob/master/config/copa_bert.conf) shows an example setup using a single task without pretraining, and can serve as a reference.
+[`copa_bert.conf`](https://github.com/nyu-mll/jiant-v1-legacy/blob/master/config/copa_bert.conf) shows an example setup using a single task without pretraining, and can serve as a reference.
 
 ## Saving Preprocessed Data
 
@@ -191,7 +191,7 @@ python setup.py sdist bdist_wheel
 python -m twine upload dist/*
 ```
 
-More details can be found in [setup.py](https://github.com/nyu-mll/jiant/blob/master/setup.py).
+More details can be found in [setup.py](https://github.com/nyu-mll/jiant-v1-legacy/blob/master/setup.py).
 
 
 ## License
@@ -220,12 +220,12 @@ This probably means that you probably ran the script before downloading the data
 
 ***How can I pass BERT embeddings straight to the classifier without a sentence encoder?***
 
-Right now, you need to set `skip_embs=1` and `sep_embs_for_skip=1` just because of the current way 
+Right now, you need to set `skip_embs=1` and `sep_embs_for_skip=1` just because of the current way
 our logic works. We're currently streamlining the logic around `sep_embs_for_skip`...
 
 ***How can I do STILTS-style training?***
 
-For a typical STILTs experiment on top of BERT, GPT, ELMo, or some other supported pre-trained encoder, you can simply start from an effective configuration like [`config/superglue_bert.conf`](https://github.com/nyu-mll/jiant/blob/master/config/superglue-bert.conf) set `pretrain_tasks` to your intermediate task and `target_tasks` to your target task.
+For a typical STILTs experiment on top of BERT, GPT, ELMo, or some other supported pre-trained encoder, you can simply start from an effective configuration like [`config/superglue_bert.conf`](https://github.com/nyu-mll/jiant-v1-legacy/blob/master/config/superglue-bert.conf) set `pretrain_tasks` to your intermediate task and `target_tasks` to your target task.
 
 Right now, we only support training in two stages, so if you'd like to do the initial pretrianing stage from scratch, things get more complicated. Training in more than two stages is possible, but will require you to divide your training up into multiple runs. For instance, assume you want to run multitask training on task set A, and then train on task set B, and finally fine-tune on task set C. You would perform the following:
 - First run: pretrain on task set A
